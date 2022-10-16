@@ -22,9 +22,9 @@ public class App implements Callable<Integer> {
     private String format = "stylish";
 
     @Override
-    public Integer call() throws java.io.IOException {
-        Map<String, Object> mappedContent1 = DataGetter.getData(filepath1);
-        Map<String, Object> mappedContent2 = DataGetter.getData(filepath2);
+    public Integer call() throws Exception {
+        Map<String, Object> mappedContent1 = Parser.getData(filepath1);
+        Map<String, Object> mappedContent2 = Parser.getData(filepath2);
 
         System.out.println(Differ.generate(mappedContent1, mappedContent2));
 

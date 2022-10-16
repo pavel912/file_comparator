@@ -1,6 +1,12 @@
 .DEFAULT_GOAL := build-run
 run-dist:
 	./app/build/install/app/bin/app $(arg1) $(arg2)
+	
+run-dist-json-test:
+	./app/build/install/app/bin/app ./app/src/test/resources/jsonFiles/file1.json ./app/src/test/resources/jsonFiles/file2.json
+
+run-dist-yaml-test:
+	./app/build/install/app/bin/app ./app/src/test/resources/yamlFiles/file1.yaml ./app/src/test/resources/yamlFiles/file2.yaml
 
 clean:
 	./app/gradlew -p app clean

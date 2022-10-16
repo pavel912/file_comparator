@@ -5,3 +5,6 @@
 
 #### Example for flat json
 [![asciicast](https://asciinema.org/a/EkxJXoS8rTbRnAVE6VE3cdI7O.svg)](https://asciinema.org/a/EkxJXoS8rTbRnAVE6VE3cdI7O)
+
+#### Example for flat yaml
+[![asciicast](https://asciinema.org/a/3nR8raZgUCJizp38GsLTuzu8A.svg)](https://asciinema.org/a/3nR8raZgUCJizp38GsLTuzu8A)
