@@ -2,11 +2,17 @@
 run-dist:
 	./app/build/install/app/bin/app $(arg1) $(arg2)
 	
-run-dist-json-test:
+run-dist-json-flat-test:
 	./app/build/install/app/bin/app ./app/src/test/resources/jsonFiles/file1.json ./app/src/test/resources/jsonFiles/file2.json
 
-run-dist-yaml-test:
+run-dist-yaml-flat-test:
 	./app/build/install/app/bin/app ./app/src/test/resources/yamlFiles/file1.yaml ./app/src/test/resources/yamlFiles/file2.yaml
+
+run-dist-json-nested-test:
+	./app/build/install/app/bin/app ./app/src/test/resources/jsonFiles/fileNested1.json ./app/src/test/resources/jsonFiles/fileNested2.json
+
+run-dist-yaml-nested-test:
+	./app/build/install/app/bin/app ./app/src/test/resources/yamlFiles/fileNested1.yaml ./app/src/test/resources/yamlFiles/fileNested2.yaml
 
 clean:
 	./app/gradlew -p app clean
