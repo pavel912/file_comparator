@@ -8,3 +8,6 @@
 
 #### Example for flat yaml
 [![asciicast](https://asciinema.org/a/3nR8raZgUCJizp38GsLTuzu8A.svg)](https://asciinema.org/a/3nR8raZgUCJizp38GsLTuzu8A)
+
+#### Examples for nested yaml and json
+[![asciicast](https://asciinema.org/a/zU8YvdpNQaMHDlWRyTA0Yt0Ig.svg)](https://asciinema.org/a/zU8YvdpNQaMHDlWRyTA0Yt0Ig)
