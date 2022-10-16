@@ -6,7 +6,7 @@ clean:
 	./app/gradlew -p app clean
 
 build:
-	 ./app/gradlew -p app clean build
+	 ./app/gradlew -p app clean build test
 
 install:
 	./app/gradlew -p app clean installDist
