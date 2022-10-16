@@ -26,7 +26,7 @@ public class App implements Callable<Integer> {
         Map<String, Object> mappedContent1 = Parser.getData(filepath1);
         Map<String, Object> mappedContent2 = Parser.getData(filepath2);
 
-        System.out.println(Differ.generate(mappedContent1, mappedContent2));
+        System.out.println(Differ.generate(mappedContent1, mappedContent2, format));
 
         return 0;
     }
