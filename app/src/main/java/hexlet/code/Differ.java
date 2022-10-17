@@ -1,28 +1,22 @@
 package hexlet.code;
 
 import java.util.Map;
-import java.util.StringJoiner;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.TreeMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 public class Differ {
     public static String generate(Map<String, Object> content1,
                                   Map<String, Object> content2, String format) throws Exception {
-        StringJoiner sj = new StringJoiner("\n", "{\n", "\n}");
+        TreeMap<String, Object[]> keyDiff = new TreeMap<>();
 
         List<String> allKeysList = getAllKeysSortedList(content1.keySet(), content2.keySet());
 
-        for (String key : allKeysList) {
-            sj.add(
-                    Formatter.format(generateDiff(
-                            content1,
-                            content2,
-                            key), format));
-        }
+        allKeysList.forEach(x -> keyDiff.put(x, generateDiff(content1, content2, x)));
 
-        return sj.toString();
+        return Formatter.format(keyDiff, format);
     }
 
     public static String generate(Map<String, Object> content1,
