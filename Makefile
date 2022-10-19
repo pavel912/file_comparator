@@ -17,6 +17,9 @@ run-dist-yaml-nested-test:
 run-dist-plain-test:
 	./app/build/install/app/bin/app ./app/src/test/resources/jsonFiles/fileNested1.json ./app/src/test/resources/jsonFiles/fileNested2.json -f plain
 
+run-dist-json-format-test:
+	./app/build/install/app/bin/app -f json ./app/src/test/resources/jsonFiles/file1.json ./app/src/test/resources/jsonFiles/file2.json
+
 clean:
 	./app/gradlew -p app clean
 
