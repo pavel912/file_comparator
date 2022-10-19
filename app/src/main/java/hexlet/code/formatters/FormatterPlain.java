@@ -7,7 +7,7 @@ import java.util.TreeMap;
 public class FormatterPlain {
 
     public static String format(TreeMap<String, Map<String, Object>> keysParams) throws RuntimeException {
-        StringJoiner sj = new StringJoiner("\n", "", "\n");
+        StringJoiner sj = new StringJoiner("\n");
 
         keysParams
                 .navigableKeySet()

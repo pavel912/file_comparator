@@ -16,7 +16,7 @@ public class Parser {
         if (absFilepath.toString().endsWith(".json")) {
             ObjectMapper jsonMapper = new ObjectMapper();
             return jsonMapper.readValue(fileContent, Map.class);
-        } else if (absFilepath.toString().endsWith(".yaml")) {
+        } else if (absFilepath.toString().endsWith(".yaml") || absFilepath.toString().endsWith(".yml")) {
             ObjectMapper yamlMapper = new YAMLMapper();
             return yamlMapper.readValue(fileContent, Map.class);
         }
