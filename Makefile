@@ -36,7 +36,7 @@ test:
 	./app/gradlew -p app test
 
 report:
-	./app/gradlew -p app jacocoTestReport
+	./app/gradlew -p app test jacocoTestReport
 
 lint:
 	./app/gradlew -p app checkstyleMain checkstyleTest
