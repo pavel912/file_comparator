@@ -6,32 +6,31 @@ import org.junit.jupiter.api.Test;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AppTest {
 
-    static List<Map<String, Object>> filesJson = new ArrayList<>();
-    static List<Map<String, Object>> filesYaml = new ArrayList<>();
+    static List<String> filesJson = new ArrayList<>();
+    static List<String> filesYaml = new ArrayList<>();
 
     @BeforeAll
     public static void loadData() throws Exception {
         String jsonDir = Paths.get("").toAbsolutePath() + "/src/test/resources/jsonFiles";
         String yamlDir = Paths.get("").toAbsolutePath() + "/src/test/resources/yamlFiles";
 
-        filesJson.add(Parser.getData(jsonDir + "/file1.json"));
-        filesJson.add(Parser.getData(jsonDir + "/file2.json"));
-        filesJson.add(Parser.getData(jsonDir + "/file3.json"));
-        filesJson.add(Parser.getData(jsonDir + "/file4.json"));
-        filesJson.add(Parser.getData(jsonDir + "/fileNested1.json"));
-        filesJson.add(Parser.getData(jsonDir + "/fileNested2.json"));
+        filesJson.add(jsonDir + "/file1.json");
+        filesJson.add(jsonDir + "/file2.json");
+        filesJson.add(jsonDir + "/file3.json");
+        filesJson.add(jsonDir + "/file4.json");
+        filesJson.add(jsonDir + "/fileNested1.json");
+        filesJson.add(jsonDir + "/fileNested2.json");
 
-        filesYaml.add(Parser.getData(yamlDir + "/file1.yaml"));
-        filesYaml.add(Parser.getData(yamlDir + "/file2.yaml"));
-        filesYaml.add(Parser.getData(yamlDir + "/file3.yaml"));
-        filesYaml.add(Parser.getData(yamlDir + "/file4.yaml"));
-        filesYaml.add(Parser.getData(yamlDir + "/fileNested1.yaml"));
-        filesYaml.add(Parser.getData(yamlDir + "/fileNested2.yaml"));
+        filesYaml.add(yamlDir + "/file1.yaml");
+        filesYaml.add(yamlDir + "/file2.yaml");
+        filesYaml.add(yamlDir + "/file3.yaml");
+        filesYaml.add(yamlDir + "/file4.yaml");
+        filesYaml.add(yamlDir + "/fileNested1.yaml");
+        filesYaml.add(yamlDir + "/fileNested2.yaml");
     }
 
     @Test

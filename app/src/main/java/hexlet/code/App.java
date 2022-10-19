@@ -5,7 +5,6 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-import java.util.Map;
 import java.util.concurrent.Callable;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true, version = "gendiff 0.1",
@@ -23,10 +22,7 @@ public class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        Map<String, Object> mappedContent1 = Parser.getData(filepath1);
-        Map<String, Object> mappedContent2 = Parser.getData(filepath2);
-
-        System.out.println(Differ.generate(mappedContent1, mappedContent2, format));
+        System.out.println(Differ.generate(filepath1, filepath2, format));
 
         return 0;
     }

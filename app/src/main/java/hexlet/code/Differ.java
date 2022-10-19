@@ -9,8 +9,10 @@ import java.util.Set;
 import java.util.TreeMap;
 
 public class Differ {
-    public static String generate(Map<String, Object> content1,
-                                  Map<String, Object> content2, String format) throws Exception {
+    public static String generate(String filepath1, String filepath2, String format) throws Exception {
+        Map<String, Object> content1 = Parser.getData(filepath1);
+        Map<String, Object> content2 = Parser.getData(filepath2);
+
         TreeMap<String, Map<String, Object>> keyDiff = new TreeMap<>();
 
         List<String> allKeysList = getAllKeysSortedList(content1.keySet(), content2.keySet());
@@ -20,9 +22,8 @@ public class Differ {
         return Formatter.format(keyDiff, format);
     }
 
-    public static String generate(Map<String, Object> content1,
-                                  Map<String, Object> content2) throws Exception {
-        return generate(content1, content2, "stylish");
+    public static String generate(String filepath1, String filepath2) throws Exception {
+        return generate(filepath1, filepath2, "stylish");
     }
 
     private static Map<String, Object> generateDiff(Map<String, Object> content1, Map<String, Object> content2,
