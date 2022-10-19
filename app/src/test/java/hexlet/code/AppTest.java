@@ -189,4 +189,16 @@ class AppTest {
         assertEquals(expected, actual);
 
     }
+
+    @Test
+    public void testFormatJson() throws Exception {
+        String actual = Differ.generate(filesJson.get(0), filesJson.get(1), "json");
+
+        String expected = "{\"follow\":{\"action\":\"remove\",\"value\":false},"
+                + "\"proxy\":{\"action\":\"remove\",\"value\":\"123.234.53.22\"},"
+                + "\"timeout\":{\"action\":\"replace\",\"old_value\":50,\"new_value\":20},"
+                + "\"verbose\":{\"action\":\"add\",\"value\":true}}";
+
+        assertEquals(expected, actual);
+    }
 }
