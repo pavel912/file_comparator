@@ -1,15 +1,16 @@
 package hexlet.code.formatters;
 
+import java.util.Map;
 import java.util.StringJoiner;
 import java.util.TreeMap;
 
 public class FormatterStylish {
-    public static String format(TreeMap<String, Object[]> keysParams) throws RuntimeException {
+    public static String format(TreeMap<String, Map<String, Object>> keysParams) throws RuntimeException {
         StringJoiner sj = new StringJoiner("\n", "{\n", "\n}");
 
         keysParams.navigableKeySet().forEach(key -> {
             try {
-                sj.add(formatAction(keysParams.get(key)));
+                sj.add(formatAction(key, keysParams.get(key)));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -18,18 +19,15 @@ public class FormatterStylish {
         return sj.toString();
     }
 
-    private static String formatAction(Object[] params) throws Exception {
-        String action = params[0].toString();
-        String key = params[1].toString();
-        Object value1 = params[2];
-        Object value2 = params[3];
+    private static String formatAction(String key, Map<String, Object> params) throws Exception {
+        String action = params.get("action").toString();
 
         return switch (action) {
-            case "add" -> formatLine("+", key, value2);
-            case "remove" -> formatLine("-", key, value1);
-            case "same" -> formatLine(" ", key, value2);
-            case "replace" -> formatLine("-", key, value1) + "\n"
-                    + formatLine("+", key, value2);
+            case "add" -> formatLine("+", key, params.get("value"));
+            case "remove" -> formatLine("-", key, params.get("value"));
+            case "same" -> formatLine(" ", key, params.get("value"));
+            case "replace" -> formatLine("-", key, params.get("old_value")) + "\n"
+                    + formatLine("+", key, params.get("new_value"));
             default -> throw new Exception("Unknown action to format");
         };
     }

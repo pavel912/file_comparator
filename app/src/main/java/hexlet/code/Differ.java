@@ -1,16 +1,17 @@
 package hexlet.code;
 
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Set;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 public class Differ {
     public static String generate(Map<String, Object> content1,
                                   Map<String, Object> content2, String format) throws Exception {
-        TreeMap<String, Object[]> keyDiff = new TreeMap<>();
+        TreeMap<String, Map<String, Object>> keyDiff = new TreeMap<>();
 
         List<String> allKeysList = getAllKeysSortedList(content1.keySet(), content2.keySet());
 
@@ -24,29 +25,32 @@ public class Differ {
         return generate(content1, content2, "stylish");
     }
 
-    public static Object[] generateDiff(Map<String, Object> content1, Map<String, Object> content2, String key) {
+    private static Map<String, Object> generateDiff(Map<String, Object> content1, Map<String, Object> content2,
+                                                    String key) {
         Object value1 = content1.get(key);
         Object value2 = content2.get(key);
 
+        Map<String, Object> actions = new HashMap<>();
+
         if (!content1.containsKey(key)) {
-            return new Object[]{"add", key, null, value2};
+            return new HashMap<>() { { put("action", "add"); put("value", value2); } };
         }
 
         if (!content2.containsKey(key)) {
-            return new Object[]{"remove", key, value1, null};
+            return new HashMap<>() { { put("action", "remove"); put("value", value1); } };
         }
 
         if (value1 == null & value2 == null) {
-            return new Object[]{"same", key, null, null};
+            return new HashMap<>() { { put("action", "add"); put("value", "null"); } };
         }
 
         if (value1 != null) {
             if (value1.equals(value2)) {
-                return new Object[]{"same", key, value1, value2};
+                return new HashMap<>() { { put("action", "same"); put("value", value1); } };
             }
         }
 
-        return new Object[]{"replace", key, value1, value2};
+        return new HashMap<>() { { put("action", "replace"); put("old_value", value1); put("new_value", value2); } };
     }
 
     public static List<String> getAllKeysSortedList(Set<String> keys1, Set<String> keys2) {

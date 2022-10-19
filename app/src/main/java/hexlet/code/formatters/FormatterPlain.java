@@ -1,35 +1,42 @@
 package hexlet.code.formatters;
 
+import java.util.Map;
 import java.util.StringJoiner;
 import java.util.TreeMap;
 
 public class FormatterPlain {
 
-    public static String format(TreeMap<String, Object[]> keysParams) throws RuntimeException {
+    public static String format(TreeMap<String, Map<String, Object>> keysParams) throws RuntimeException {
         StringJoiner sj = new StringJoiner("\n", "", "\n");
 
-        keysParams.navigableKeySet().stream().filter(key -> !keysParams.get(key)[0].equals("same")).forEach(key -> {
-            try {
-                sj.add(formatAction(keysParams.get(key)));
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+        keysParams
+                .navigableKeySet()
+                .stream()
+                .filter(key -> !keysParams
+                        .get(key)
+                        .get("action")
+                        .equals("same"))
+                .forEach(key -> {
+                    try {
+                        sj.add(formatAction(key, keysParams.get(key)));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                });
 
         return sj.toString();
     }
-    private static String formatAction(Object[] params) throws Exception {
-        String action = params[0].toString();
-        String key = params[1].toString();
-        Object value1 = params[2];
-        Object value2 = params[3];
+    private static String formatAction(String key, Map<String, Object> params) throws Exception {
+        String action = params.get("action").toString();
 
         return switch (action) {
-            case "add" -> String.format("Property '%s' was added with value: %s", key, transformValue(value2));
+            case "add" -> String.format("Property '%s' was added with value: %s",
+                    key,
+                    transformValue(params.get("value")));
             case "remove" -> String.format("Property '%s' was removed", key);
             case "same" -> null;
             case "replace" -> String.format("Property '%s' was updated. From %s to %s",
-                    key, transformValue(value1), transformValue(value2));
+                    key, transformValue(params.get("old_value")), transformValue(params.get("new_value")));
             default -> throw new Exception("Unknown action to format");
         };
     }
