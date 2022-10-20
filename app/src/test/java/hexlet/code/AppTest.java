@@ -1,137 +1,21 @@
 package hexlet.code;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AppTest {
 
-    static List<String> filesJson = new ArrayList<>();
-    static List<String> filesYaml = new ArrayList<>();
-
-    @BeforeAll
-    public static void loadData() throws Exception {
-        String jsonDir = Paths.get("").toAbsolutePath() + "/src/test/resources/jsonFiles";
-        String yamlDir = Paths.get("").toAbsolutePath() + "/src/test/resources/yamlFiles";
-
-        filesJson.add(jsonDir + "/file1.json");
-        filesJson.add(jsonDir + "/file2.json");
-        filesJson.add(jsonDir + "/file3.json");
-        filesJson.add(jsonDir + "/file4.json");
-        filesJson.add(jsonDir + "/fileNested1.json");
-        filesJson.add(jsonDir + "/fileNested2.json");
-
-        filesYaml.add(yamlDir + "/file1.yaml");
-        filesYaml.add(yamlDir + "/file2.yaml");
-        filesYaml.add(yamlDir + "/file3.yaml");
-        filesYaml.add(yamlDir + "/file4.yaml");
-        filesYaml.add(yamlDir + "/fileNested1.yaml");
-        filesYaml.add(yamlDir + "/fileNested2.yaml");
-    }
-
-    @Test
-    public void testFlatJson() throws Exception {
-        String actual1 = Differ.generate(filesJson.get(0), filesJson.get(1));
-        String expected1 = """
-                {
-                  - follow: false
-                    host: hexlet.io
-                  - proxy: 123.234.53.22
-                  - timeout: 50
-                  + timeout: 20
-                  + verbose: true
-                }""";
-
-        assertEquals(expected1, actual1);
-
-        // no matching keys
-        String actual2 = Differ.generate(filesJson.get(0), filesJson.get(2));
-        String expected2 = """
-                {
-                  + based: hexlet.io
-                  + child: false
-                  + cringe: 50
-                  - follow: false
-                  - host: hexlet.io
-                  + parent: 123.234.53.22
-                  - proxy: 123.234.53.22
-                  - timeout: 50
-                }""";
-
-        assertEquals(expected2, actual2);
-
-        //datatype change
-        String actual3 = Differ.generate(filesJson.get(2), filesJson.get(3));
-        String expected3 = """
-                {
-                  - based: hexlet.io
-                  + based: yes
-                  - child: false
-                  + child: yes
-                  - cringe: 50
-                  + cringe: -50
-                  - parent: 123.234.53.22
-                  + parent: no
-                }""";
-
-        assertEquals(expected3, actual3);
-    }
-
-    @Test
-    public void testFlatYaml() throws Exception {
-        String actual1 = Differ.generate(filesYaml.get(0), filesYaml.get(1));
-        String expected1 = """
-                {
-                  - follow: false
-                    host: hexlet.io
-                  - proxy: 123.234.53.22
-                  - timeout: 50
-                  + timeout: 20
-                  + verbose: true
-                }""";
-
-        assertEquals(expected1, actual1);
-
-        // no matching keys
-        String actual2 = Differ.generate(filesYaml.get(0), filesYaml.get(2));
-        String expected2 = """
-                {
-                  + based: hexlet.io
-                  + child: false
-                  + cringe: 50
-                  - follow: false
-                  - host: hexlet.io
-                  + parent: 123.234.53.22
-                  - proxy: 123.234.53.22
-                  - timeout: 50
-                }""";
-
-        assertEquals(expected2, actual2);
-
-        //datatype change
-        String actual3 = Differ.generate(filesYaml.get(2), filesYaml.get(3));
-        String expected3 = """
-                {
-                  - based: hexlet.io
-                  + based: yess
-                  - child: false
-                  + child: yess
-                  - cringe: 50
-                  + cringe: -50
-                  - parent: 123.234.53.22
-                  + parent: noo
-                }""";
-
-        assertEquals(expected3, actual3);
-    }
-
     @Test
     public void testNested() throws Exception {
-        String actualJson = Differ.generate(filesJson.get(4), filesJson.get(5));
+        String jsonFile1 = Paths.get("").toAbsolutePath() + "/src/test/resources/jsonFiles/fileNested1.json";
+        String jsonFile2 = Paths.get("").toAbsolutePath() + "/src/test/resources/jsonFiles/fileNested2.json";
+
+        String yamlFile1 = Paths.get("").toAbsolutePath() + "/src/test/resources/yamlFiles/fileNested1.yaml";
+        String yamlFile2 = Paths.get("").toAbsolutePath() + "/src/test/resources/yamlFiles/fileNested2.yaml";
+
+        String actualJson = Differ.generate(jsonFile1, jsonFile2);
         String expected = """
                 {
                     chars1: [a, b, c]
@@ -161,14 +45,17 @@ class AppTest {
 
         assertEquals(expected, actualJson);
 
-        String actualYaml = Differ.generate(filesYaml.get(4), filesYaml.get(5));
+        String actualYaml = Differ.generate(yamlFile1, yamlFile2);
 
         assertEquals(expected, actualYaml);
     }
 
     @Test
     public void testPlainFormat() throws Exception {
-        String actual = Differ.generate(filesJson.get(4), filesJson.get(5), "plain");
+        String jsonFile1 = Paths.get("").toAbsolutePath() + "/src/test/resources/jsonFiles/fileNested1.json";
+        String jsonFile2 = Paths.get("").toAbsolutePath() + "/src/test/resources/jsonFiles/fileNested2.json";
+
+        String actual = Differ.generate(jsonFile1, jsonFile2, "plain");
         String expected = """
                 Property 'chars2' was updated. From [complex value] to false
                 Property 'checked' was updated. From false to true
@@ -190,7 +77,10 @@ class AppTest {
 
     @Test
     public void testFormatJson() throws Exception {
-        String actual = Differ.generate(filesJson.get(0), filesJson.get(1), "json");
+        String jsonFile1 = Paths.get("").toAbsolutePath() + "/src/test/resources/jsonFiles/file1.json";
+        String jsonFile2 = Paths.get("").toAbsolutePath() + "/src/test/resources/jsonFiles/file2.json";
+
+        String actual = Differ.generate(jsonFile1, jsonFile2, "json");
 
         String expected = "{\"follow\":{\"action\":\"remove\",\"value\":false},"
                 + "\"proxy\":{\"action\":\"remove\",\"value\":\"123.234.53.22\"},"
