@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -23,7 +24,10 @@ public class FormatterJson {
                 .forEach(key -> keysParamsNotSame.put(key, keysParams.get(key)));
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(new File("src/main/resources/jsonOutput/output.json"), keysParamsNotSame);
+
+
+        mapper.writeValue(new File(Paths.get("").toAbsolutePath()
+                + "/src/main/resources/jsonOutput/output.json"), keysParamsNotSame);
         return mapper.writeValueAsString(keysParamsNotSame);
     }
 }
