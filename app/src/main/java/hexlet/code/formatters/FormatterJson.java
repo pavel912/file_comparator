@@ -27,7 +27,7 @@ public class FormatterJson {
 
 
         mapper.writeValue(new File(Paths.get("").toAbsolutePath()
-                + "/src/main/resources/jsonOutput/output.json"), keysParamsNotSame);
+                + "/src/main/resources/output.json"), keysParamsNotSame);
         return mapper.writeValueAsString(keysParamsNotSame);
     }
 }
