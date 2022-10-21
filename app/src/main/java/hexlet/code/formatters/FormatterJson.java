@@ -1,14 +1,15 @@
 package hexlet.code.formatters;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class FormatterJson {
     public static String format(TreeMap<String, Map<String, Object>> keysParams)
-            throws RuntimeException, JsonProcessingException {
+            throws RuntimeException, IOException {
 
         TreeMap<String, Map<String, Object>> keysParamsNotSame = new TreeMap<>();
 
@@ -22,6 +23,7 @@ public class FormatterJson {
                 .forEach(key -> keysParamsNotSame.put(key, keysParams.get(key)));
 
         ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(new File("src/main/resources/jsonOutput/output.json"), keysParamsNotSame);
         return mapper.writeValueAsString(keysParamsNotSame);
     }
 }
