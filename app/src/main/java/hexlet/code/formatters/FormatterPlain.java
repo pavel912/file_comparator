@@ -11,11 +11,6 @@ public class FormatterPlain {
 
         keysParams
                 .navigableKeySet()
-                .stream()
-                .filter(key -> !keysParams
-                        .get(key)
-                        .get("action")
-                        .equals("same"))
                 .forEach(key -> {
                     try {
                         sj.add(formatAction(key, keysParams.get(key)));
