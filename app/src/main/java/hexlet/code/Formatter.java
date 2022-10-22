@@ -9,14 +9,17 @@ import java.util.TreeMap;
 
 public class Formatter {
     public static String format(TreeMap<String, Map<String, Object>> keysParams, String format) throws Exception {
-        if (format.equals("stylish")) {
-            return FormatterStylish.format(keysParams);
-        } else if (format.equals("plain")) {
-            return FormatterPlain.format(keysParams);
-        } else if (format.equals("json")) {
-            return FormatterJson.format(keysParams);
-        } else {
-            throw new Exception("Unknown format for formatting");
+        switch (format) {
+            case "stylish" -> {
+                return FormatterStylish.format(keysParams);
+            }
+            case "plain" -> {
+                return FormatterPlain.format(keysParams);
+            }
+            case "json" -> {
+                return FormatterJson.format(keysParams);
+            }
+            default -> throw new Exception("Unknown format for formatting");
         }
     }
 }
