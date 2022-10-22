@@ -16,9 +16,8 @@ class AppTest {
         String yamlFile2 = Paths.get("").toAbsolutePath() + "/src/test/resources/yamlFiles/fileNested2.yaml";
 
         String actualJson = Differ.generate(jsonFile1, jsonFile2);
-        String expected = DataGetter
-                .getData("src/test/resources/expectedOutput/expectedStylish")
-                .get("content");
+        String expected = Differ
+                .getData("src/test/resources/expectedOutput/expectedStylish");
 
         assertEquals(expected, actualJson);
 
@@ -33,9 +32,8 @@ class AppTest {
         String jsonFile2 = Paths.get("").toAbsolutePath() + "/src/test/resources/jsonFiles/fileNested2.json";
 
         String actual = Differ.generate(jsonFile1, jsonFile2, "plain");
-        String expected = DataGetter
-                .getData("src/test/resources/expectedOutput/expectedPlain")
-                .get("content");
+        String expected = Differ
+                .getData("src/test/resources/expectedOutput/expectedPlain");
 
         assertEquals(expected, actual);
 
@@ -48,9 +46,8 @@ class AppTest {
 
         String actual = Differ.generate(jsonFile1, jsonFile2, "json");
 
-        String expected = DataGetter
-                .getData("src/test/resources/expectedOutput/expectedJson.json")
-                .get("content");
+        String expected = Differ
+                .getData("src/test/resources/expectedOutput/expectedJson.json");
 
         assertEquals(expected, actual);
     }
