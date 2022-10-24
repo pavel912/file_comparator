@@ -3,7 +3,6 @@ package hexlet.code;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -13,18 +12,6 @@ public class Differ {
         Map<String, Object> content2 = Parser.parseData(getData(filepath2), getFileFormat(filepath1));
 
         TreeMap<String, Map<String, Object>> keyDiff = DiffBuilder.buildDifference(content1, content2);
-
-        if (format.equals("plain") || format.equals("json")) {
-            List<String> keysSame = keyDiff
-                    .navigableKeySet()
-                    .stream()
-                    .filter(key -> keyDiff
-                            .get(key)
-                            .get("action")
-                            .equals("same")).toList();
-
-            keyDiff.keySet().removeAll(keysSame);
-        }
 
         return Formatter.format(keyDiff, format);
     }
